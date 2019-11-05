@@ -109,7 +109,8 @@ public class LinkedListDeque<T> {
  			return p.next.item;
  		}
  		p=p.next;
- 		return getRecursive(index-1);
+ 		index--;
+ 		return getRecursive(index);
  	}
 	/**public static void main(String[] args) {
  		SLList L = new SLList();
