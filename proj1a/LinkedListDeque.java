@@ -101,17 +101,18 @@ public class LinkedListDeque<T> {
  		return p.next.item;
  	}
  	public T getRecursive(int index){
- 		Node p=sentinel;
- 		if (index>=size) {
- 			return null;
- 		}
- 		else if (index==0) {
- 			return p.next.item;
- 		}
- 		p=p.next;
- 		index--;
- 		return getRecursive(index);
+ 		return getRecursivehelper(sentinel.next,index);
  	}
+ 	public T getRecursivehelper(Node n,int index){
+ 		if(index>=size){
+ 			return null;
+		}
+ 		else if(index==0)
+		{
+			return n.item;
+		}
+ 		return getRecursivehelper(n.next,index-1);
+	}
 	/**public static void main(String[] args) {
  		SLList L = new SLList();
  		L.addLast(20);
