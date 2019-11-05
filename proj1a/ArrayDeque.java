@@ -1,4 +1,3 @@
-/**Looking at the solution to come up with this*/
 public class ArrayDeque<T> {
     private T[] items;
     private int size;
@@ -7,28 +6,29 @@ public class ArrayDeque<T> {
     private static int mCapacity = 16; // The minimum capacity for contraction resizing
     private static double mRatio = 0.25; // The minimum usage ratio before contraction
     private static int cFactor = 2; // Contracting factor
-    private int capacity; // The length of array
+    private int Cap;
     private int nextFirst;
     private int nextLast;
     /** Creates an empty list. */
     public ArrayDeque() {
         items = (T[]) new Object[initialCapacity];
-        nextFirst = capacity-1;
-        nextLast=0;
+        nextFirst = initialCapacity-1;
+        nextLast = 0;
         size = 0;
+        Cap=initialCapacity;
     }
 
     /** Decreases index according to circular structure. */
     private int oneMinus(int index) {
         if (index == 0) {
-            return capacity - 1;
+            return Cap - 1;
         } else {
             return index - 1;
         }
     }
     /** Increases given index according to circular structure. */
     private int onePlus(int index) {
-        if (index == capacity - 1) {
+        if (index == Cap - 1) {
             return 0;
         } else {
             return index + 1;
@@ -45,6 +45,7 @@ public class ArrayDeque<T> {
         else{
             System.arraycopy(items,nextFirst,newitems,0,size+1);
         }
+        Cap=capacity;
         items = newitems;
         nextLast=size+1;
         nextFirst=0;
@@ -89,7 +90,7 @@ public class ArrayDeque<T> {
         if (isEmpty()){
             return null;
         }
-        else if(items.length>=mCapacity && size/capacity<0.25){
+        else if(items.length>=mCapacity && size/Cap<mRatio){
             resize(size/cFactor);
         }
         T x = get(nextFirst+1);
@@ -101,7 +102,7 @@ public class ArrayDeque<T> {
         if (isEmpty()){
             return null;
         }
-        else if(items.length>=mCapacity && size/capacity<0.25){
+        else if(items.length>=mCapacity && size/Cap<mRatio){
             resize(size/cFactor);
         }
         T x = get(nextLast-1);
