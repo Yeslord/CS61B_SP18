@@ -35,16 +35,16 @@ public class LinkedListDeque<T> {
 
  	/** Adds x to the front of the list. */
  	public void addFirst(T item) {
- 		Node newFirst=new Node(sentinel,item,sentinel.next);
- 		sentinel.next=newFirst;
- 		sentinel.next.next.prev=newFirst;
+ 		Node newFirst = new Node(sentinel,item,sentinel.next);
+ 		sentinel.next = newFirst;
+ 		sentinel.next.next.prev = newFirst;
  		size = size + 1;
  	}
  	/** Adds x to the last of the list. */
  	public void addLast(T item) {
- 		Node newLast=new Node(sentinel.next,item,sentinel);
- 		sentinel.prev=newLast;
- 		sentinel.next.next=newLast;
+ 		Node newLast = new Node(sentinel.prev,item,sentinel);
+ 		sentinel.prev = newLast;
+ 		sentinel.prev.prev.next = newLast;
  		size = size + 1;
  	}
  	/**Returns true if deque is empty, false otherwise**/
@@ -91,7 +91,7 @@ public class LinkedListDeque<T> {
  	}
  	public T get(int index){
  		Node p=sentinel;
- 		if (index>size) {
+ 		if (index>=size) {
  			return null;
  		}
  		while (index!=0) {
