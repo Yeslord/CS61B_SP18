@@ -102,12 +102,13 @@ public class LinkedListDeque<T> {
  	}
  	public T getRecursive(int index){
  		Node p=sentinel;
- 		if (index>size) {
+ 		if (index>=size) {
  			return null;
  		}
  		else if (index==0) {
  			return p.next.item;
  		}
+ 		p=p.next;
  		return getRecursive(index-1);
  	}
 	/**public static void main(String[] args) {

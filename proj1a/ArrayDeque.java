@@ -13,7 +13,7 @@ public class ArrayDeque<T> {
     /** Creates an empty list. */
     public ArrayDeque() {
         items = (T[]) new Object[initialCapacity];
-        nextFirst=capacity-1;
+        nextFirst = capacity-1;
         nextLast=0;
         size = 0;
     }
@@ -113,6 +113,5 @@ public class ArrayDeque<T> {
         for (int i=0;i<size;i++) {
             System.out.println(get(i)+" ");
         }
-
     }
 } 
