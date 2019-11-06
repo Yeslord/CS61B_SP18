@@ -102,6 +102,7 @@ public class ArrayDeque<T> {
         T x = get(onePlus((nextFirst)));
         items[onePlus(nextFirst)] = null;
         size = size - 1;
+        nextFirst=onePlus(nextFirst);
         return x;
     }
     public T removeLast() {
@@ -115,6 +116,7 @@ public class ArrayDeque<T> {
         T x = get(oneMinus(nextLast));
         items[oneMinus(nextLast)] = null;
         size = size - 1;
+        nextLast=oneMinus(nextLast);
         return x;
     }
     public void printDeque() {
