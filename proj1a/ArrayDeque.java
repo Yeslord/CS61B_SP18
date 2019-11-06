@@ -40,7 +40,7 @@ public class ArrayDeque<T> {
         T[] newitems = (T[]) new Object[capacity];
         if(nextFirst>nextLast) {
             System.arraycopy(items,nextFirst,newitems,0,(items.length-nextFirst));
-            System.arraycopy(items,0,newitems,(items.length-nextFirst),(nextLast-1));
+            System.arraycopy(items,0,newitems,(items.length-nextFirst),nextLast);
         }
         else{
             System.arraycopy(items,nextFirst,newitems,0,size+1);
@@ -102,7 +102,7 @@ public class ArrayDeque<T> {
         if (isEmpty()){
             return null;
         }
-        else if(items.length>=mCapacity && size/Cap<mRatio){
+        else if((items.length>=mCapacity) && (size/Cap<mRatio)){
             resize(size/cFactor);
         }
         T x = get(nextLast-1);
