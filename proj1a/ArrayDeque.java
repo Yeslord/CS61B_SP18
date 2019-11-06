@@ -36,7 +36,13 @@ public class ArrayDeque<T> {
             return index + 1;
         }
     }
-
+    private int onePlusget(int index) {
+        if (index >= Cap - 1) {
+            return index-Cap+1;
+        } else {
+            return index + 1;
+        }
+    }
     /** Resizes the underlying array to the target capacity. (difficult) */
     private void resize(int capacity) {
         T[] newitems = (T[]) new Object[capacity];
@@ -83,7 +89,7 @@ public class ArrayDeque<T> {
         if (index>=Cap) {
             return null;
         }
-        return items[onePlus(index+nextFirst)];
+        return items[onePlusget(index+nextFirst)];
     }
 
     /** Returns the number of items in the list. */
