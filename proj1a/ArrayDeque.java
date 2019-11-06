@@ -12,8 +12,8 @@ public class ArrayDeque<T> {
     /** Creates an empty list. */
     public ArrayDeque() {
         items = (T[]) new Object[initialCapacity];
-        nextFirst = initialCapacity-1;
-        nextLast = 0;
+        nextLast = 1;
+        nextFirst = 0;
         size = 0;
         Cap=initialCapacity;
     }
@@ -38,35 +38,37 @@ public class ArrayDeque<T> {
     /** Resizes the underlying array to the target capacity. (difficult) */
     private void resize(int capacity) {
         T[] newitems = (T[]) new Object[capacity];
-        if(nextFirst>nextLast) {
-            System.arraycopy(items,nextFirst,newitems,0,(items.length-nextFirst));
-            System.arraycopy(items,0,newitems,(items.length-nextFirst),nextLast);
+        if(onePlus(nextFirst)>oneMinus(nextLast)) {
+            System.arraycopy(items,onePlus(nextFirst),newitems,0,Cap-onePlus(nextFirst));
+            System.arraycopy(items,0,newitems,Cap-onePlus(nextFirst),nextLast);
+            nextLast=size;
+            nextFirst=capacity-1;
         }
         else{
-            System.arraycopy(items,nextFirst,newitems,0,size+1);
+            System.arraycopy(items,onePlus(nextFirst),newitems,0,size);
+            nextLast=size;
+            nextFirst=capacity-1;
         }
         Cap=capacity;
         items = newitems;
-        nextLast=size+1;
-        nextFirst=0;
     }
 
     /** Inserts X into the front and back of the list. */
     public void addFirst(T item) {
-        if (size == items.length) {
-            resize(size *eFactor);
-        }
         items[nextFirst]=item;
         nextFirst=oneMinus(nextFirst);
         size = size + 1;
-    }
-   public void addLast(T item) {
         if (size == items.length) {
             resize(size *eFactor);
         }
+    }
+   public void addLast(T item) {
         items[nextLast]=item;
         nextLast=onePlus(nextLast);
         size = size + 1;
+       if (size == items.length) {
+           resize(size *eFactor);
+       }
     }
     public boolean isEmpty() {
         if (size==0) {
@@ -76,6 +78,9 @@ public class ArrayDeque<T> {
     }
     /** Gets the ith item in the list (0 is the front). */
     public T get(int index) {
+        if (index>=Cap) {
+            return null;
+        }
         return items[index];
     }
 
@@ -87,26 +92,28 @@ public class ArrayDeque<T> {
     /** Deletes item from back of the list and
       * returns deleted item. */
     public T removeFirst() {
+        double ratio=(double) size / Cap;
         if (isEmpty()){
             return null;
         }
-        else if(items.length>=mCapacity && size/Cap<mRatio){
-            resize(size/cFactor);
+        else if(Cap>=mCapacity && ratio<mRatio){
+            resize(Cap/cFactor);
         }
-        T x = get(nextFirst+1);
-        items[nextFirst+1] = null;
+        T x = get(onePlus((nextFirst)));
+        items[onePlus(nextFirst)] = null;
         size = size - 1;
         return x;
     }
     public T removeLast() {
+        double ratio=(double) size / Cap;
         if (isEmpty()){
             return null;
         }
-        else if((items.length>=mCapacity) && (size/Cap<mRatio)){
-            resize(size/cFactor);
+        else if((Cap>=mCapacity) && ratio<mRatio){
+            resize(Cap/cFactor);
         }
-        T x = get(nextLast-1);
-        items[nextLast-1] = null;
+        T x = get(oneMinus(nextLast));
+        items[oneMinus(nextLast)] = null;
         size = size - 1;
         return x;
     }
