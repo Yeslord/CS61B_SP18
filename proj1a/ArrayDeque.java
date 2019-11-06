@@ -1,3 +1,5 @@
+import javax.swing.*;
+
 public class ArrayDeque<T> {
     private T[] items;
     private int size;
@@ -81,7 +83,7 @@ public class ArrayDeque<T> {
         if (index>=Cap) {
             return null;
         }
-        return items[index];
+        return items[onePlus(index+nextFirst)];
     }
 
     /** Returns the number of items in the list. */
@@ -99,7 +101,7 @@ public class ArrayDeque<T> {
         else if(Cap>=mCapacity && ratio<mRatio){
             resize(Cap/cFactor);
         }
-        T x = get(onePlus((nextFirst)));
+        T x = items[(onePlus((nextFirst)))];
         items[onePlus(nextFirst)] = null;
         size = size - 1;
         nextFirst=onePlus(nextFirst);
@@ -113,7 +115,7 @@ public class ArrayDeque<T> {
         else if((Cap>=mCapacity) && ratio<mRatio){
             resize(Cap/cFactor);
         }
-        T x = get(oneMinus(nextLast));
+        T x = items[(oneMinus(nextLast))];
         items[oneMinus(nextLast)] = null;
         size = size - 1;
         nextLast=oneMinus(nextLast);
