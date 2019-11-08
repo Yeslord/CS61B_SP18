@@ -235,5 +235,16 @@ public class IntList {
         out.format(")");
         return out.toString();
     }
+    /**Solution is better than offical one!!*/
+    public static IntList Reverse(IntList A) {
+        if(A==null){
+            return null;
+        }
+        else if(A.rest==null || A==null){
+            IntList answer=new IntList(A.first,null);
+            return answer;
+        }
+        return catenate(Reverse(A.rest),new IntList(A.first,null));
+    }
 }
 
