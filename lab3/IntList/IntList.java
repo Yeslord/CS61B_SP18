@@ -236,7 +236,7 @@ public class IntList {
         return out.toString();
     }
     /**Solution is better than offical one!!*/
-    public static IntList Reverse(IntList A) {
+    public static IntList reverse(IntList A) {
         if(A==null){
             return null;
         }
@@ -244,7 +244,7 @@ public class IntList {
             IntList answer=new IntList(A.first,null);
             return answer;
         }
-        return catenate(Reverse(A.rest),new IntList(A.first,null));
+        return catenate(reverse(A.rest),new IntList(A.first,null));
     }
 }
 
