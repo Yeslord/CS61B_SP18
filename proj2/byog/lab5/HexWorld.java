@@ -10,6 +10,7 @@ import java.util.Random;
 
 /**
  * Draws a world consisting of hexagonal regions.
+ * Inspired by the official solution
  */
 public class HexWorld {
     /**
@@ -21,7 +22,26 @@ public class HexWorld {
      * @param t the tile to draw
      */
     public static void addHexagon(TETile[][]world,int x,int y,int base, TETile t) {
-        world
     }
-    public static void
+
+    /*for any given row, draw the world based on the offset and width*/
+    public static void addrow(TETile[][]world,int x,int y,int width,TETile t){
+        for(int i=0;i<width;i++){
+            int xnew=x+i;
+            world[xnew][y]=t;
+        }
+    }
+
+    public static int rowoffset(int base, int row){
+        if(row<base){
+            return base-1-row;
+        }
+        return row-base-1;
+    }
+    public static int rowwidth(int base, int row){
+        if(row<base){
+            return base+2*row;
+        }
+        return 2*(base-row);
+    }
 }
