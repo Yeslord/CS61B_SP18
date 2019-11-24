@@ -81,17 +81,55 @@ public class MemoryGame {
 
 
     public void flashSequence(String letters) {
-
+        for (int i = 0; i < letters.length(); i++) {
+            drawFrame(letters.substring(i, i + 1));
+            StdDraw.pause(1000);
+            drawFrame(" ");
+            StdDraw.pause(500);
+        }
     }
 
-    public String solicitNCharsInput(int n) {
-        //TODO: Read n letters of player input
-        return null;
+    public String solicitNCharsInput(int n) { /*difficult*/
+        String input="";
+        drawFrame(input);
+        while (input.length() < n) {
+           if (StdDraw.hasNextKeyTyped()) {
+               char key = StdDraw.nextKeyTyped();
+               input += String.valueOf(key);
+               drawFrame(input);
+           }
+        }
+        StdDraw.pause(500);
+        return input;
     }
 
     public void startGame() {
         //TODO: Set any relevant variables before the game starts
+        gameOver = false;
+        playerTurn = false;
+        round = 1;
 
+        while (!gameOver) {
+            playerTurn = false;
+            drawFrame("Round " + round + "! Good luck!");
+            StdDraw.pause(1500);
+
+
+            String roundString = generateRandomString(round);
+            flashSequence(roundString);
+
+            playerTurn = true;
+            String userInput = solicitNCharsInput(round);
+
+            if (!userInput.equals(roundString)) {
+                gameOver = true;
+                drawFrame("Game Over! Final level: " + round);
+            } else {
+                drawFrame("Correct, well done!");
+                StdDraw.pause(1500);
+                round += 1;
+            }
+        }
         //TODO: Establish Game loop
     }
 
