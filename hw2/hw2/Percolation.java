@@ -78,4 +78,7 @@ public class Percolation {
     public int numberOfOpenSites(){
         return opensize;
     }
+    public static void main(String[] args) {
+
+    }
 }
