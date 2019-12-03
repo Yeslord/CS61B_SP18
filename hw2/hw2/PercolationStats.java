@@ -5,32 +5,24 @@ import edu.princeton.cs.introcs.StdStats;
 
 public class PercolationStats {
 
-    private int[] C;
+    private double[] C;
 
     // perform T independent experiments on an N-by-N grid
     public PercolationStats(int N, int T, PercolationFactory pf) {
 
         if (N <= 0 || T <= 0) throw new IllegalArgumentException("Illegal Arguments!");
 
-        int count = 0;
 
         for (int i = 0; i < T; i += 1) {
             Percolation p = pf.make(N);
             while (!p.percolates()) {
                 int rdmRow = StdRandom.uniform(N);
                 int rdmCol = StdRandom.uniform(N);
-                try {
-                    p.open(rdmRow, rdmCol);
-                    count++;
-                } catch (Exception e) {
-                    continue;
+                p.open(rdmRow, rdmCol);
                 }
-
+            C[i]=(double)p.numberOfOpenSites();
             }
-            C[i] = count;
         }
-
-    }
 
 
     // sample mean of percolation threshold
